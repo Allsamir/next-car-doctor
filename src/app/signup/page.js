@@ -4,7 +4,15 @@ import { FcGoogle } from "react-icons/fc";
 import { FaGithub } from "react-icons/fa";
 import Link from "next/link";
 export default function SignUpPage() {
-  const handleSubmit = () => {};
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    const newUser = {
+      name: e.target.name.value,
+      email: e.target.email.value,
+      password: e.target.password.value,
+    };
+    console.log(newUser);
+  };
   return (
     <>
       <div className="flex md:flex-row flex-col-reverse gap-20 my-20">

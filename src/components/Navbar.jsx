@@ -80,6 +80,9 @@ const Navbar = () => {
       </div>
       <div className="navbar-end">
         <a className="btn btn-primary">Appointment</a>
+        <Link href={`/signin`} className="btn btn-primary ml-4">
+          Login
+        </Link>
       </div>
     </div>
   );
