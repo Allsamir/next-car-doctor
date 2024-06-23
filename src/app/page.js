@@ -1,10 +1,9 @@
-import Navbar from "@/components/Navbar";
-import Image from "next/image";
+import HomePage from "@/components/homepage/HomePage";
 
 export default function Home() {
   return (
     <>
-      <button className="btn btn-primary">Hello</button>
+      <HomePage />
     </>
   );
 }
