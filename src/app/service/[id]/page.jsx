@@ -2,7 +2,7 @@ import Image from "next/image";
 import Link from "next/link";
 import React from "react";
 
-const getServicesDetails = async (id) => {
+export const getServicesDetails = async (id) => {
   try {
     const res = await fetch(`http://localhost:3000/api/services/${id}`);
     const serviceDetails = await res.json();
@@ -24,7 +24,7 @@ const ServicesDetailsPage = async ({ params }) => {
   return (
     <>
       <div
-        className="hero min-h-screen"
+        className="hero min-h-[50vh]"
         style={{
           backgroundImage: `url(${serviceDetails.img})`,
         }}
@@ -64,7 +64,10 @@ const ServicesDetailsPage = async ({ params }) => {
             <span className="mt-4 inline-block text-2xl text-primary font-bold">
               Price: ${serviceDetails?.price}
             </span>
-            <Link href={``} className="mt-4 block">
+            <Link
+              href={`/checkout/${serviceDetails._id}`}
+              className="mt-4 block"
+            >
               <button className="btn btn-primary btn-block">CheckOut</button>
             </Link>
           </div>
