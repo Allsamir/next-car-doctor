@@ -1,10 +1,21 @@
 "use client";
 import Image from "next/image";
 import { FcGoogle } from "react-icons/fc";
+import { signIn } from "next-auth/react";
 import { FaGithub } from "react-icons/fa";
 import Link from "next/link";
 export default function SignInPage() {
-  const handleSubmit = () => {};
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    const email = e.target.email.value;
+    const password = e.target.password.value;
+    console.log(email, password);
+    const res = signIn("credentials", {
+      email,
+      password,
+      redirect: false,
+    });
+  };
   return (
     <>
       <div className="flex md:flex-row flex-col-reverse gap-20 my-20">
