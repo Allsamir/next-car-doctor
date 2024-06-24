@@ -11,7 +11,17 @@ export default function SignUpPage() {
       email: e.target.email.value,
       password: e.target.password.value,
     };
-    console.log(newUser);
+    const res = fetch(`http://localhost:3000/api/signup`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(newUser),
+    });
+    if ((await res).status === 200) {
+      alert("User saved successfully");
+      e.target.reset();
+    }
   };
   return (
     <>

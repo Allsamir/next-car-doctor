@@ -5,7 +5,7 @@ mongoose.connect(process.env.NEXT_PUBLIC_DATABASE_URI ?? "");
 
 mongoose.Promise = global.Promise;
 
-const UserSchema = new mongoose.Schema(
+const userSchema = new mongoose.Schema(
   {
     email: {
       type: String,
@@ -22,7 +22,8 @@ const UserSchema = new mongoose.Schema(
   },
 );
 
-UserSchema.pre("save", async function (next) {
+userSchema.pre("save", async function (next) {
+  // this is a mongoose middleware
   if (this.isModified("password") || this.isNew) {
     try {
       const saltRounds = 10;
@@ -36,6 +37,6 @@ UserSchema.pre("save", async function (next) {
   }
 });
 
-const User = mongoose.models.User || mongoose.model("User", UserSchema);
+const User = mongoose.models.User || mongoose.model("User", userSchema);
 
 export default User;

@@ -4,10 +4,13 @@ import { NextResponse } from "next/server";
 export async function POST(request) {
   try {
     const body = await request.json();
-    await User.create({
+    const newUser = new User({
       name: body.name,
       email: body.email,
+      password: body.password,
     });
+    await newUser.save();
+
     return NextResponse.json(
       { message: "User saved successfully" },
       { status: 200 },
