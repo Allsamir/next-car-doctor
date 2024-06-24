@@ -1,8 +1,7 @@
 "use client";
 import Image from "next/image";
-import { FcGoogle } from "react-icons/fc";
-import { FaGithub } from "react-icons/fa";
 import Link from "next/link";
+import SocialLogin from "@/components/SocialLogin";
 export default function SignUpPage() {
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -25,13 +24,14 @@ export default function SignUpPage() {
   };
   return (
     <>
-      <div className="flex md:flex-row flex-col-reverse gap-20 my-20">
+      <div className="flex md:flex-row flex-col-reverse gap-4 my-20">
         <div className="flex-1">
           <Image
             src={`/assets/images/login/login.svg`}
             alt="Login"
             width={700}
             height={700}
+            className="w-auto h-auto"
           />
         </div>
         <div className="flex-1 items-center flex">
@@ -83,10 +83,7 @@ export default function SignUpPage() {
               </div>
               <div className="text-center mt-4">
                 <h6>or sign in with</h6>
-                <div className="flex gap-4 justify-center mt-4 text-2xl">
-                  <FcGoogle />
-                  <FaGithub />
-                </div>
+                <SocialLogin />
               </div>
               <p className="text-center">
                 Don&apos;t have any account?{" "}

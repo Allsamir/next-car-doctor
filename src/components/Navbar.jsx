@@ -84,15 +84,25 @@ const Navbar = () => {
       <div className="navbar-end">
         <a className="btn btn-primary">Appointment</a>
         {session.status === "authenticated" ? (
-          <button
-            className="btn btn-primary ml-4"
-            onClick={() => {
-              signOut();
-              toast.success("Logged out successfully");
-            }}
-          >
-            Logout
-          </button>
+          <>
+            <Image
+              src={session?.data.user?.image}
+              alt={session?.data.user?.name}
+              height={50}
+              width={50}
+              className="rounded-full ml-4"
+              title={session?.data.user?.name}
+            />
+            <button
+              className="btn btn-primary ml-4"
+              onClick={() => {
+                signOut();
+                toast.success("Logged out successfully");
+              }}
+            >
+              Logout
+            </button>
+          </>
         ) : (
           <Link href={`/signin`} className="btn btn-primary ml-4">
             Login

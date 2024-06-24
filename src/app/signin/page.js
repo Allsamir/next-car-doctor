@@ -1,11 +1,12 @@
 "use client";
 import Image from "next/image";
-import { FcGoogle } from "react-icons/fc";
+
 import { signIn } from "next-auth/react";
-import { FaGithub } from "react-icons/fa";
+
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import toast, { Toaster } from "react-hot-toast";
+import SocialLogin from "@/components/SocialLogin";
 export default function SignInPage() {
   const router = useRouter();
   const handleSubmit = async (e) => {
@@ -30,13 +31,14 @@ export default function SignInPage() {
   };
   return (
     <>
-      <div className="flex md:flex-row flex-col-reverse gap-20 my-20">
+      <div className="flex md:flex-row flex-col-reverse gap-4 my-20">
         <div className="flex-1">
           <Image
             src={`/assets/images/login/login.svg`}
             alt="Login"
             width={700}
             height={700}
+            className="w-auto h-auto"
           />
         </div>
         <div className="flex-1 items-center flex">
@@ -68,11 +70,6 @@ export default function SignInPage() {
                   required
                   name="password"
                 />
-                <label className="label">
-                  <a href="#" className="label-text-alt link link-hover">
-                    Forgot password?
-                  </a>
-                </label>
               </div>
               <div className="form-control mt-6">
                 <button type="submit" className="btn btn-primary">
@@ -81,10 +78,7 @@ export default function SignInPage() {
               </div>
               <div className="text-center mt-4">
                 <h6>or sign in with</h6>
-                <div className="flex gap-4 justify-center mt-4 text-2xl">
-                  <FcGoogle />
-                  <FaGithub />
-                </div>
+                <SocialLogin />
               </div>
               <p className="text-center">
                 Don&apos;t have any account?{" "}
