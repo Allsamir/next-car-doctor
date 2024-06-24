@@ -4,17 +4,29 @@ import { FcGoogle } from "react-icons/fc";
 import { signIn } from "next-auth/react";
 import { FaGithub } from "react-icons/fa";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
+import toast, { Toaster } from "react-hot-toast";
 export default function SignInPage() {
-  const handleSubmit = (e) => {
+  const router = useRouter();
+  const handleSubmit = async (e) => {
     e.preventDefault();
     const email = e.target.email.value;
     const password = e.target.password.value;
-    console.log(email, password);
-    const res = signIn("credentials", {
+    const res = await signIn("credentials", {
       email,
       password,
       redirect: false,
     });
+    if (res.status === 200) {
+      toast.success("Logged in successfully");
+      setTimeout(() => {
+        router.push("/");
+      }, 2000);
+    } else if (res.status === 401) {
+      toast.error("Invalid email or password");
+    } else {
+      toast.error("Something went wrong");
+    }
   };
   return (
     <>
@@ -83,6 +95,7 @@ export default function SignInPage() {
             </form>
           </div>
         </div>
+        <Toaster />
       </div>
     </>
   );

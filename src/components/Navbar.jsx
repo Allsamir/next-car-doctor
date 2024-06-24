@@ -1,13 +1,16 @@
+"use client";
+import { signOut, useSession } from "next-auth/react";
 import Image from "next/image";
 import Link from "next/link";
 import React from "react";
-
+import toast, { Toaster } from "react-hot-toast";
 const Navbar = () => {
   const logo = (
     <Link href={`/`}>
       <Image src={`/assets/logo.svg`} alt="logo" width={100} height={100} />
     </Link>
   );
+  const session = useSession();
   const navItems = [
     {
       title: "Home",
@@ -80,10 +83,23 @@ const Navbar = () => {
       </div>
       <div className="navbar-end">
         <a className="btn btn-primary">Appointment</a>
-        <Link href={`/signin`} className="btn btn-primary ml-4">
-          Login
-        </Link>
+        {session.status === "authenticated" ? (
+          <button
+            className="btn btn-primary ml-4"
+            onClick={() => {
+              signOut();
+              toast.success("Logged out successfully");
+            }}
+          >
+            Logout
+          </button>
+        ) : (
+          <Link href={`/signin`} className="btn btn-primary ml-4">
+            Login
+          </Link>
+        )}
       </div>
+      <Toaster />
     </div>
   );
 };

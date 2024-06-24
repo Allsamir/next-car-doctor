@@ -1,3 +1,5 @@
+import User from "@/models/User";
+import { compareSync } from "bcrypt";
 import NextAuth from "next-auth";
 import CredentialsProvider from "next-auth/providers/credentials";
 const handler = NextAuth({
@@ -12,7 +14,19 @@ const handler = NextAuth({
         password: {},
       },
       async authorize(credentials) {
-        return true;
+        const { email, password } = credentials;
+        if (!email || !password) {
+          return null;
+        }
+        const user = await User.findOne({ email });
+        if (!user) {
+          return null;
+        }
+        const isPasswordMatched = compareSync(password, user.password);
+        if (!isPasswordMatched) {
+          return null;
+        }
+        return user;
       },
     }),
   ],
