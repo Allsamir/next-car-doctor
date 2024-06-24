@@ -53,8 +53,8 @@ const handler = NextAuth({
           await newUser.save();
           return user;
         } catch (err) {
-          return user;
           console.log(err);
+          return user;
         }
       } else {
         return user;
