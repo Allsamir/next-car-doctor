@@ -96,8 +96,10 @@ const Navbar = () => {
             <button
               className="btn btn-primary ml-4"
               onClick={() => {
-                signOut();
                 toast.success("Logged out successfully");
+                setTimeout(() => {
+                  signOut();
+                }, 2000);
               }}
             >
               Logout

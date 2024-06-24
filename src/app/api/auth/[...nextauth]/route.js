@@ -40,7 +40,27 @@ const handler = NextAuth({
       clientSecret: process.env.NEXT_PUBLIC_GITHUB_SECRET,
     }),
   ],
-  callbacks: {},
+  callbacks: {
+    async signIn({ user, account }) {
+      if (account.provider === "google" || account.provider === "github") {
+        const { email, name, image } = user;
+        try {
+          const newUser = new User({
+            name,
+            email,
+            image,
+          });
+          await newUser.save();
+          return user;
+        } catch (err) {
+          return user;
+          console.log(err);
+        }
+      } else {
+        return user;
+      }
+    },
+  },
   pages: {
     signIn: "/signin",
   },

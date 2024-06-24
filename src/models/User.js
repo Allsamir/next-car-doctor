@@ -14,28 +14,28 @@ const userSchema = new mongoose.Schema(
     name: String,
     password: {
       type: String,
-      required: true,
     },
+    image: String,
   },
   {
     timestamps: true,
   },
 );
 
-userSchema.pre("save", async function (next) {
-  // this is a mongoose middleware
-  if (this.isModified("password") || this.isNew) {
-    try {
-      const saltRounds = 10;
-      this.password = await bcrypt.hash(this.password, saltRounds);
-      next();
-    } catch (error) {
-      next(error);
-    }
-  } else {
-    next();
-  }
-});
+// userSchema.pre("save", async function (next) {
+//   // this is a mongoose middleware
+//   if (this.isModified("password") || this.isNew) {
+//     try {
+//       const saltRounds = 10;
+//       this.password = await bcrypt.hash(this.password, saltRounds);
+//       next();
+//     } catch (error) {
+//       next(error);
+//     }
+//   } else {
+//     next();
+//   }
+// });
 
 const User = mongoose.models.User || mongoose.model("User", userSchema);
 

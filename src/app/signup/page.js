@@ -2,7 +2,10 @@
 import Image from "next/image";
 import Link from "next/link";
 import SocialLogin from "@/components/SocialLogin";
+import toast, { Toaster } from "react-hot-toast";
+import { useRouter } from "next/navigation";
 export default function SignUpPage() {
+  const router = useRouter();
   const handleSubmit = async (e) => {
     e.preventDefault();
     const newUser = {
@@ -18,7 +21,10 @@ export default function SignUpPage() {
       body: JSON.stringify(newUser),
     });
     if ((await res).status === 200) {
-      alert("User saved successfully");
+      toast.success("Successfully Registerd!");
+      setTimeout(() => {
+        router.push("/");
+      }, 2000);
       e.target.reset();
     }
   };
@@ -94,6 +100,7 @@ export default function SignUpPage() {
             </form>
           </div>
         </div>
+        <Toaster />
       </div>
     </>
   );

@@ -1,8 +1,6 @@
 "use client";
 import Image from "next/image";
-
 import { signIn } from "next-auth/react";
-
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import toast, { Toaster } from "react-hot-toast";
