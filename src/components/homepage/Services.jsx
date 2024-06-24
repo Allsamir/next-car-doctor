@@ -31,6 +31,7 @@ const Services = async () => {
             title={s.title}
             des={s.description}
             price={s.price}
+            _id={s._id}
           />
         ))}
       </div>
