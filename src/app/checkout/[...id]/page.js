@@ -1,5 +1,6 @@
 import { getServicesDetails } from "@/app/service/[id]/page";
 import Checkout from "@/components/checkoutpage/Checkout";
+import axios from "axios";
 export let metadata = {
   title: "",
   description: "",
@@ -18,15 +19,15 @@ export default async function CheckoutPage({ params }) {
   } else {
     const getBookingsDetails = async (id) => {
       try {
-        const res = await fetch(`http://localhost:3000/api/bookings/${id}`);
-        const bookingDetails = await res.json();
-        return bookingDetails;
+        const res = await axios.get(`http://localhost:3000/api/bookings/${id}`);
+        return res.data;
       } catch (error) {
         console.error(error);
       }
     };
     const booking = await getBookingsDetails(params.id[1]);
-    console.log(booking);
+    metadata.title = booking?.service_name;
+    metadata.description = booking?.email;
     return <h1>Hi</h1>;
   }
 }
