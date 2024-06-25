@@ -15,3 +15,20 @@ export async function GET(request, { params }) {
     );
   }
 }
+
+export async function DELETE(request, { params }) {
+  try {
+    const deleteBooking = await Bookings.findOneAndDelete({
+      _id: params.email,
+    });
+    return NextResponse.json(deleteBooking, {
+      status: 200,
+    });
+  } catch (error) {
+    console.error(error);
+    return NextResponse.json(
+      { message: "Error is in Booking route" },
+      { status: 500 },
+    );
+  }
+}

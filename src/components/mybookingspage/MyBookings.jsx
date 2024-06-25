@@ -2,12 +2,31 @@
 import { useSession } from "next-auth/react";
 import Image from "next/image";
 import React, { useEffect, useState } from "react";
+import toast from "react-hot-toast";
 
 const MyBookings = () => {
   const { data } = useSession();
   const [bookings, setBookings] = useState([]);
   const [error, setError] = useState(null);
-
+  const handleDelete = (id) => {
+    fetch(`http://localhost:3000/api/bookings/${id}`, {
+      method: "DELETE",
+    })
+      .then((res) => {
+        if (!res.ok) {
+          throw new Error("Failed to delete booking");
+        }
+        toast.success("Deleted booking");
+        return res.json();
+      })
+      .then(() => {
+        const newBookings = bookings.filter((booking) => booking._id !== id);
+        setBookings(newBookings);
+      })
+      .catch((error) => {
+        console.error(error);
+      });
+  };
   useEffect(() => {
     const loadBookings = async () => {
       try {
@@ -69,13 +88,19 @@ const MyBookings = () => {
                       alt="Service"
                       width={200}
                       height={200}
+                      className="rounded-xl"
                     />
                   </th>
                   <td>{b?.service_name}</td>
                   <td>${b?.service_price}</td>
                   <td>{new Date(b?.date).toLocaleDateString()}</td>
                   <th>
-                    <button className="btn btn-primary">Delete</button>
+                    <button
+                      className="btn btn-primary"
+                      onClick={() => handleDelete(b._id)}
+                    >
+                      Delete
+                    </button>
                     <button className="btn btn-primary bg-white text-primary ml-4">
                       Edit
                     </button>
