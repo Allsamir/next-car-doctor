@@ -2,19 +2,21 @@ import React from "react";
 import { FaGithub } from "react-icons/fa";
 import { FcGoogle } from "react-icons/fc";
 import { signIn, useSession } from "next-auth/react";
-import { useRouter } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 import toast from "react-hot-toast";
 const SocialLogin = () => {
   const session = useSession();
   const router = useRouter();
+  const searchParams = useSearchParams();
+  const path = searchParams.get("redirect");
   const handleSocialLogin = async (provider) => {
-    const res = await signIn(provider, { redirect: false });
+    const res = await signIn(provider, {
+      redirect: true,
+      callbackUrl: path ? path : "/",
+    });
   };
   if (session.status === "authenticated") {
     toast.success("Logged in successfully");
-    setTimeout(() => {
-      router.push("/");
-    }, 2000);
   }
   return (
     <div className="flex gap-4 justify-center mt-4 text-2xl">

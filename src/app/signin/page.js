@@ -2,11 +2,13 @@
 import Image from "next/image";
 import { signIn } from "next-auth/react";
 import Link from "next/link";
-import { useRouter } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 import toast, { Toaster } from "react-hot-toast";
 import SocialLogin from "@/components/SocialLogin";
 export default function SignInPage() {
   const router = useRouter();
+  const searchParams = useSearchParams();
+  const path = searchParams.get("redirect");
   const handleSubmit = async (e) => {
     e.preventDefault();
     const email = e.target.email.value;
@@ -14,13 +16,11 @@ export default function SignInPage() {
     const res = await signIn("credentials", {
       email,
       password,
-      redirect: false,
+      redirect: true,
+      callbackUrl: path ? path : "/",
     });
     if (res.status === 200) {
       toast.success("Logged in successfully");
-      setTimeout(() => {
-        router.push("/");
-      }, 2000);
     } else if (res.status === 401) {
       toast.error("Invalid email or password");
     } else {
