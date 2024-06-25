@@ -7,7 +7,13 @@ import toast, { Toaster } from "react-hot-toast";
 const Navbar = () => {
   const logo = (
     <Link href={`/`}>
-      <Image src={`/assets/logo.svg`} alt="logo" width={100} height={100} />
+      <Image
+        src={`/assets/logo.svg`}
+        alt="logo"
+        width={100}
+        height={100}
+        style={{ width: "auto", height: "auto" }}
+      />
     </Link>
   );
   const session = useSession();
@@ -21,8 +27,8 @@ const Navbar = () => {
       path: "/about",
     },
     {
-      title: "Blog",
-      path: "/blog",
+      title: "My Bookings",
+      path: "/my-bookings",
     },
     {
       title: "Contact",
@@ -85,14 +91,16 @@ const Navbar = () => {
         <a className="btn btn-primary">Appointment</a>
         {session.status === "authenticated" ? (
           <>
-            <Image
-              src={session?.data.user?.image || ""}
-              alt={session?.data.user?.name}
-              height={50}
-              width={50}
-              className="rounded-full ml-4"
-              title={session?.data.user?.name}
-            />
+            {session?.data?.user?.image && (
+              <Image
+                src={session?.data.user?.image || ""}
+                alt={session?.data.user?.name}
+                height={50}
+                width={50}
+                className="rounded-full ml-4"
+                title={session?.data.user?.name}
+              />
+            )}
             <button
               className="btn btn-primary ml-4"
               onClick={() => {
