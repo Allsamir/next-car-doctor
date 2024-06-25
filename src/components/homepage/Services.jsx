@@ -3,7 +3,7 @@ import ServiceCard from "../ServiceCard";
 
 const getServices = async () => {
   try {
-    const res = await fetch(`http://localhost:3000/api/services`);
+    const res = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/api/services`);
     const services = res.json();
     return services;
   } catch (error) {

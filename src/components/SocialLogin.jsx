@@ -2,11 +2,10 @@ import React from "react";
 import { FaGithub } from "react-icons/fa";
 import { FcGoogle } from "react-icons/fc";
 import { signIn, useSession } from "next-auth/react";
-import { useRouter, useSearchParams } from "next/navigation";
+import { useSearchParams } from "next/navigation";
 import toast from "react-hot-toast";
 const SocialLogin = () => {
   const session = useSession();
-  const router = useRouter();
   const searchParams = useSearchParams();
   const path = searchParams.get("redirect");
   const handleSocialLogin = async (provider) => {

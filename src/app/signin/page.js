@@ -2,11 +2,10 @@
 import Image from "next/image";
 import { signIn } from "next-auth/react";
 import Link from "next/link";
-import { useRouter, useSearchParams } from "next/navigation";
+import { useSearchParams } from "next/navigation";
 import toast, { Toaster } from "react-hot-toast";
 import SocialLogin from "@/components/SocialLogin";
 export default function SignInPage() {
-  const router = useRouter();
   const searchParams = useSearchParams();
   const path = searchParams.get("redirect");
   const handleSubmit = async (e) => {

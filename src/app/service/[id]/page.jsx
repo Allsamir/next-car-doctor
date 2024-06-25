@@ -4,7 +4,9 @@ import React from "react";
 
 export const getServicesDetails = async (id) => {
   try {
-    const res = await fetch(`http://localhost:3000/api/services/${id}`);
+    const res = await fetch(
+      `${process.env.NEXT_PUBLIC_BASE_URL}/api/services/${id}`,
+    );
     const serviceDetails = await res.json();
     return serviceDetails;
   } catch (error) {

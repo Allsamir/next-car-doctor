@@ -13,7 +13,7 @@ export default function SignUpPage() {
       email: e.target.email.value,
       password: e.target.password.value,
     };
-    const res = fetch(`http://localhost:3000/api/signup`, {
+    const res = fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/api/signup`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

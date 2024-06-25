@@ -10,7 +10,7 @@ const MyBookings = () => {
   const [bookings, setBookings] = useState([]);
   const [error, setError] = useState(null);
   const handleDelete = (id) => {
-    fetch(`http://localhost:3000/api/bookings/${id}`, {
+    fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/api/bookings/${id}`, {
       method: "DELETE",
     })
       .then((res) => {
@@ -32,7 +32,7 @@ const MyBookings = () => {
     const loadBookings = async () => {
       try {
         const res = await fetch(
-          `http://localhost:3000/api/bookings/${data?.user?.email}`,
+          `${process.env.NEXT_PUBLIC_BASE_URL}/api/bookings/${data?.user?.email}`,
         );
         if (!res.ok) {
           throw new Error("Failed to fetch bookings");
