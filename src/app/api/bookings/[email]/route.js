@@ -32,3 +32,23 @@ export async function DELETE(request, { params }) {
     );
   }
 }
+
+export async function PATCH(request, { params }) {
+  try {
+    const { date, phone, address } = await request.json();
+    const updateBooking = await Bookings.findByIdAndUpdate(
+      { _id: params.email },
+      { date, phone, address },
+      { new: true },
+    );
+    return NextResponse.json(updateBooking, {
+      status: 200,
+    });
+  } catch (error) {
+    console.error(error);
+    return NextResponse.json(
+      { message: "Error is in Booking route" },
+      { status: 500 },
+    );
+  }
+}
