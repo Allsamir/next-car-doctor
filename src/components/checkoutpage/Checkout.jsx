@@ -14,12 +14,12 @@ const CheckoutPage = ({ id, service }) => {
       address: e.target.address.value,
       phone: e.target.phone.value,
       date: e.target.date.value,
-      service_id: id,
+      service_id: service._id,
       service_name: service.title,
       service_img: service.img,
       service_price: service.price,
     };
-    const res = await fetch(`http://localhost:3000/api/checkout/${id}`, {
+    const res = await fetch(`http://localhost:3000/api/checkout`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

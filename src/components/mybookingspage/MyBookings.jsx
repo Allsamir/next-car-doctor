@@ -1,6 +1,7 @@
 "use client";
 import { useSession } from "next-auth/react";
 import Image from "next/image";
+import Link from "next/link";
 import React, { useEffect, useState } from "react";
 import toast from "react-hot-toast";
 
@@ -101,9 +102,11 @@ const MyBookings = () => {
                     >
                       Delete
                     </button>
-                    <button className="btn btn-primary bg-white text-primary ml-4">
-                      Edit
-                    </button>
+                    <Link href={`/checkout/updateBooking/${b._id}`}>
+                      <button className="btn btn-primary bg-white text-primary ml-4">
+                        Edit
+                      </button>
+                    </Link>
                   </th>
                 </tr>
               ))}

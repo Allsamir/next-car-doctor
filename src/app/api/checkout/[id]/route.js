@@ -1,7 +1,7 @@
 import Bookings from "@/models/Bookings";
 import { NextResponse } from "next/server";
 
-export async function POST(request, { params }) {
+export async function POST(request) {
   try {
     const body = await request.json();
     const newBooking = new Bookings(body);

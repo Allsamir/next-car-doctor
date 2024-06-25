@@ -3,7 +3,14 @@ import { NextResponse } from "next/server";
 
 export async function GET(request, { params }) {
   try {
-    const bookings = await Bookings.find({ email: params.email });
+    const { email } = params;
+    let bookings;
+
+    if (email.includes("@")) {
+      bookings = await Bookings.find({ email });
+    } else {
+      bookings = await Bookings.findById({ _id: email });
+    }
     return NextResponse.json(bookings, {
       status: 200,
     });
