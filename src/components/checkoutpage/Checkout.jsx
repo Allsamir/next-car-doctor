@@ -2,9 +2,35 @@
 
 import { useSession } from "next-auth/react";
 import React from "react";
+import toast from "react-hot-toast";
 
 const CheckoutPage = ({ id, service }) => {
   const { data } = useSession(); // session data is coming from SessionProvider in Provider folder
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    const newBooking = {
+      name: e.target.name.value,
+      email: e.target.email.value,
+      address: e.target.address.value,
+      phone: e.target.phone.value,
+      date: e.target.date.value,
+      service_id: id,
+      service_name: service.title,
+      service_img: service.img,
+      service_price: service.price,
+    };
+    const res = await fetch(`http://localhost:3000/api/checkout/${id}`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(newBooking),
+    });
+    if ((await res).status === 200) {
+      toast.success("Successfully Booked!");
+      e.target.reset();
+    }
+  };
   return (
     <>
       <div
@@ -21,7 +47,7 @@ const CheckoutPage = ({ id, service }) => {
         </div>
       </div>
       <div className="mt-8 shadow-2xl bg-base-200">
-        <form className="card-body">
+        <form className="card-body" onSubmit={handleSubmit}>
           <div className="flex gap-4">
             <div className="form-control flex-1">
               <label className="label">
@@ -46,6 +72,7 @@ const CheckoutPage = ({ id, service }) => {
                 placeholder="Date"
                 className="input input-bordered"
                 required
+                name="date"
               />
             </div>
           </div>
@@ -105,7 +132,9 @@ const CheckoutPage = ({ id, service }) => {
             </div>
           </div>
           <div className="form-control mt-6">
-            <button className="btn btn-primary">Confirm Order</button>
+            <button className="btn btn-primary" type="submit">
+              Confirm Order
+            </button>
           </div>
         </form>
       </div>

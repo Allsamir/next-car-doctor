@@ -86,7 +86,7 @@ const Navbar = () => {
         {session.status === "authenticated" ? (
           <>
             <Image
-              src={session?.data.user?.image}
+              src={session?.data.user?.image || ""}
               alt={session?.data.user?.name}
               height={50}
               width={50}
