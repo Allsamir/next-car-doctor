@@ -1,6 +1,7 @@
 import { getServicesDetails } from "@/app/service/[id]/page";
 import Checkout from "@/components/checkoutpage/Checkout";
 import axios from "axios";
+import UpdateBooking from "@/components/updateBookings/UpdateBooking";
 export let metadata = {
   title: "",
   description: "",
@@ -30,6 +31,10 @@ export default async function CheckoutPage({ params }) {
     const booking = await getBookingsDetails(params.id[1]);
     metadata.title = booking?.service_name;
     metadata.description = booking?.email;
-    return <h1>Hi</h1>;
+    return (
+      <>
+        <UpdateBooking booking={booking} />
+      </>
+    );
   }
 }
