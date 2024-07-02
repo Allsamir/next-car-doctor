@@ -1,11 +1,34 @@
 "use client";
 import { useSession } from "next-auth/react";
 import React from "react";
+import toast from "react-hot-toast";
 
 const UpdateBooking = ({ booking }) => {
   const { data } = useSession();
   const defalutDate = booking.date.slice(0, 16);
-  console.log(defalutDate);
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    const updatedBooking = {
+      date: e.target.date.value,
+      phone: e.target.phone.value,
+      address: e.target.address.value,
+    };
+    fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/api/bookings/${booking._id}`, {
+      method: "PATCH",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(updatedBooking),
+    })
+      .then((response) => response.json())
+      .then(() => {
+        toast.success("Booking updated successfully!");
+      })
+      .catch((error) => {
+        toast.error("Failed to update booking!");
+        console.error(error);
+      });
+  };
   return (
     <>
       <div
@@ -24,7 +47,7 @@ const UpdateBooking = ({ booking }) => {
         </div>
       </div>
       <div className="mt-8 shadow-2xl bg-base-200">
-        <form className="card-body">
+        <form className="card-body" onSubmit={handleSubmit}>
           <div className="flex gap-4">
             <div className="form-control flex-1">
               <label className="label">
